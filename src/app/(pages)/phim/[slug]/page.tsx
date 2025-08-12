@@ -6,19 +6,15 @@ import { BreadCumb } from "./BreadCumb";
 import { ActorList } from "./ActorList";
 import { Metadata } from "next";
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+type Params = Promise<{ slug: string }>;
 
 export const metadata: Metadata = {
   title: "Chi tiết phim",
   description: "Mô tả trang chi tiết phim",
 };
 
-export default async function MovieDetail({ params }: Props) {
-  const { slug } = params;
+export default async function MovieDetail({ params }: { params: Params }) {
+  const { slug } = await params;
 
   // Get movie detail
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BE}/phim/${slug}`);
