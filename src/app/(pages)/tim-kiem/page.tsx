@@ -1,11 +1,13 @@
 import { Note } from "@/app/components/note/Note";
 import { SearchContainer } from "./SearchContainer";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import { LoadingComponent } from "@/app/components/LoadingComponent";
 
 export const metadata: Metadata = {
   title: "Tìm kiếm",
-  description: "Mô tả trang tìm kiếm"
-}
+  description: "Mô tả trang tìm kiếm",
+};
 
 export default async function SearchPage() {
   return (
@@ -15,7 +17,9 @@ export default async function SearchPage() {
           <Note />
 
           {/* Search Container */}
-          <SearchContainer />
+          <Suspense fallback={<LoadingComponent />}>
+            <SearchContainer />
+          </Suspense>
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
+"use client";
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FaMagnifyingGlass, FaStar } from "react-icons/fa6";

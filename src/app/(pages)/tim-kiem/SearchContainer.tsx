@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoadingComponent } from "@/app/components/LoadingComponent";

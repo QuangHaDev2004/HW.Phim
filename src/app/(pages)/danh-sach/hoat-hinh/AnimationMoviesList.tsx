@@ -1,14 +1,14 @@
 "use client";
-import { LoadingComponent } from "@/app/components/LoadingComponent";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { LoadingComponent } from "@/app/components/LoadingComponent";
 import { MovieCard } from "@/app/components/movieCard/MovieCard";
 import { NotFound } from "@/app/components/notFound/NotFound";
 import { PaginationMovie } from "@/app/components/pagination/PaginationMovie";
 import { SearchFilter } from "@/app/components/SearchFilter";
 import { TitlePage } from "@/app/components/title/TitlePage";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export const AnimationMoviesList = () => {
   const searchParams = useSearchParams();
@@ -43,7 +43,9 @@ export const AnimationMoviesList = () => {
 
   return (
     <>
-      <SearchFilter />
+      <Suspense fallback={<LoadingComponent />}>
+        <SearchFilter />
+      </Suspense>
       <TitlePage text="Phim hoạt hình" />
 
       {isLoading ? (
@@ -58,7 +60,9 @@ export const AnimationMoviesList = () => {
             ))}
           </div>
 
-          <PaginationMovie totalPage={totalPage} />
+          <Suspense fallback={<LoadingComponent />}>
+            <PaginationMovie totalPage={totalPage} />
+          </Suspense>
         </>
       )}
     </>

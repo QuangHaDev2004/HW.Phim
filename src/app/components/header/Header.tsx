@@ -4,7 +4,8 @@ import Link from "next/link";
 import { FaBars, FaMagnifyingGlass } from "react-icons/fa6";
 import { SearchForm } from "./SearchForm";
 import { HeaderMenu } from "./HeaderMenu";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { LoadingComponent } from "../LoadingComponent";
 
 export const Header = () => {
   const [isShowMenu, setIsShowMenu] = useState(false);
@@ -21,10 +22,13 @@ export const Header = () => {
             <HeaderMenu isShowMenu={isShowMenu} setIsShowMenu={setIsShowMenu} />
           </div>
           <div className="flex items-center gap-[20px] sm:gap-[24px]">
-            <SearchForm
-              isShowSearch={isShowSearch}
-              setIsShowSearch={setIsShowSearch}
-            />
+            <Suspense fallback={<LoadingComponent />}>
+              <SearchForm
+                isShowSearch={isShowSearch}
+                setIsShowSearch={setIsShowSearch}
+              />
+            </Suspense>
+
             <button
               onClick={() => setIsShowSearch(!isShowSearch)}
               className="block sm:hidden"

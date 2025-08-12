@@ -1,6 +1,8 @@
 import { Note } from "@/app/components/note/Note";
 import { Metadata } from "next";
 import { AnimationMoviesList } from "./AnimationMoviesList";
+import { Suspense } from "react";
+import { LoadingComponent } from "@/app/components/LoadingComponent";
 
 export const metadata: Metadata = {
   title: "Phim hoạt hình",
@@ -13,7 +15,9 @@ export default function AnimationPage() {
       <div className="container">
         <div className="bg-dark-two pt-[90px] pb-[40px] lg:pt-[70px]">
           <Note />
-          <AnimationMoviesList />
+          <Suspense fallback={<LoadingComponent />}>
+            <AnimationMoviesList />
+          </Suspense>
         </div>
       </div>
     </>
