@@ -1,26 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1216px;
+  --breakpoint-2xl: 1216px;
+
+  --color-dark-one: #0f0f0f;
+  --color-dark-two: #141414;
+  --color-dark-three: #262626;
+  --color-dark-four: #333333;
+  --color-primary: #e5e7eb;
+  --color-secondary: #9ca3af;
+  --color-red: #e50000;
+  --color-yellow: #eab308;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-dark-two);
+}
+
+input,
+select {
+  outline: none;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.text-gradient-one {
+  @apply bg-gradient-to-r from-[#ef4444] via-[#e11d48] to-[#9d174d] bg-clip-text text-transparent;
+}
+
+.bg-gradient-1 {
+  @apply bg-gradient-to-r from-[#ef4444] via-[#e11d48] to-[#9d174d];
+}
+
+.bg-gradient-2 {
+  @apply bg-gradient-to-r from-[#84cc16] via-[#16a34a] to-[#0f766e];
+}
+
+select::-webkit-scrollbar,
+.list-episodes::-webkit-scrollbar,
+.suggest::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-thumb,
+.list-episodes::-webkit-scrollbar-thumb,
+.suggest::-webkit-scrollbar-thumb {
+  background-color: var(--color-dark-four);
 }
