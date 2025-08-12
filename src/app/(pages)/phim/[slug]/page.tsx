@@ -7,9 +7,9 @@ import { ActorList } from "./ActorList";
 import { Metadata } from "next";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function MovieDetail({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
 
   // Get movie detail
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BE}/phim/${slug}`);
