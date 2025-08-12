@@ -1,23 +1,23 @@
 import { Note } from "@/app/components/note/Note";
 import { MovieDescription } from "./MovieDescription";
 import { MovieInfo } from "./MovieInfo";
-import { RelatedMediaList } from "./RelatedMediaList.";
+import { RelatedMediaList } from "./RelatedMediaList";
 import { BreadCumb } from "./BreadCumb";
 import { ActorList } from "./ActorList";
 import { Metadata } from "next";
 
-type Props = {
+export const metadata: Metadata = {
+  title: "Chi tiết phim",
+  description: "Mô tả trang chi tiết phim",
+};
+
+export default async function MovieDetail({
+  params,
+}: {
   params: {
     slug: string;
   };
-};
-
-export const metadata: Metadata = {
-  title: "Chi tiết phim",
-  description: "Mô tả trang chi tiết phim"
-}
-
-export default async function MovieDetail({ params }: Props) {
+}) {
   const { slug } = await params;
 
   // Get movie detail
