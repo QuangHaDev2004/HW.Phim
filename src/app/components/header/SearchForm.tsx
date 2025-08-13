@@ -1,9 +1,10 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { FaMagnifyingGlass, FaStar } from "react-icons/fa6";
+import { FaMagnifyingGlass, FaStar, FaXmark } from "react-icons/fa6";
 
 type Props = {
   isShowSearch: boolean;
@@ -15,6 +16,7 @@ type Suggestion = {
   thumb_url: string;
   name: string;
   origin_name: string;
+  slug: string;
   tmdb: {
     vote_average: string;
   };
@@ -27,6 +29,7 @@ export const SearchForm = ({ isShowSearch, setIsShowSearch }: Props) => {
   const searchParams = useSearchParams();
   const keyword = searchParams.get("keyword") || ""; //gán giá trị mặc định cho ô input
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [showSuggest, setShowSuggest] = useState(false);
 
   const fetchSuggestion = async (value: string) => {
     const res = await fetch(
@@ -39,9 +42,10 @@ export const SearchForm = ({ isShowSearch, setIsShowSearch }: Props) => {
   };
 
   const handleChange = (event: any) => {
-    const newValue = event.target.value.trim();
-    if (newValue === "") {
+    const newValue = event.target.value;
+    if (newValue.trim() === "") {
       setSuggestions([]);
+      setShowSuggest(false);
       return;
     }
 
@@ -51,6 +55,7 @@ export const SearchForm = ({ isShowSearch, setIsShowSearch }: Props) => {
 
     debounceTimer = setTimeout(() => {
       fetchSuggestion(newValue);
+      setShowSuggest(true);
     }, 200);
   };
 
@@ -60,8 +65,13 @@ export const SearchForm = ({ isShowSearch, setIsShowSearch }: Props) => {
     const query = `?keyword=${encodeURIComponent(keyword)}`;
 
     router.push(`/tim-kiem${query}`);
+    closeSearch();
+  };
+
+  const closeSearch = () => {
     setIsShowSearch(false);
     setSuggestions([]);
+    setShowSuggest(false);
   };
 
   return (
@@ -88,10 +98,18 @@ export const SearchForm = ({ isShowSearch, setIsShowSearch }: Props) => {
           </button>
 
           {/* Suggestion */}
-          {suggestions.length > 0 && (
+          {showSuggest && suggestions.length > 0 && (
             <div className="suggest bg-dark-three absolute top-[130%] left-0 hidden max-h-[500px] w-full overflow-y-auto rounded-[4px] sm:block">
+              <button
+                onClick={() => setShowSuggest(false)}
+                className="bg-red inline-block cursor-pointer p-[6px]"
+              >
+                <FaXmark className="text-[16px]" />
+              </button>
               {suggestions.map((item) => (
-                <div
+                <Link
+                  onClick={closeSearch}
+                  href={`/phim/${item.slug}`}
                   key={item._id}
                   className="hover:bg-dark-four flex items-center gap-[16px] p-[10px] transition-all duration-300 ease-in-out"
                 >
@@ -112,7 +130,7 @@ export const SearchForm = ({ isShowSearch, setIsShowSearch }: Props) => {
                       {item.tmdb.vote_average}
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}
